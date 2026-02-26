@@ -1,10 +1,9 @@
 import cv2
 from ultralytics import YOLO
 
-# Load YOLOv8 model (pretrained on COCO)
 model = YOLO("yolov8n.pt")
 
-# Function to find the built-in webcam
+#built-in webcam
 def get_builtin_camera(max_index=4):
     for i in range(max_index + 1):
         cap = cv2.VideoCapture(i)
@@ -17,7 +16,6 @@ def get_builtin_camera(max_index=4):
     print("No webcam found")
     return None
 
-# Open built-in webcam
 cap = get_builtin_camera()
 if cap is None:
     exit()
@@ -28,19 +26,12 @@ while True:
         print("Failed to grab frame")
         break
 
-    # Run YOLO detection
+    #YOLO detection
     results = model(frame)
-
-    # Draw bounding boxes on frame
     annotated_frame = results[0].plot()
-
-    # Show frame
     cv2.imshow("YOLO Pedestrian Detection", annotated_frame)
-
-    # Press 'q' to quit
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Release camera and close windows
 cap.release()
 cv2.destroyAllWindows()
