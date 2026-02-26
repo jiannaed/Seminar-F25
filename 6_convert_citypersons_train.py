@@ -2,17 +2,13 @@ import json
 import os
 from PIL import Image
 
-# ----------------------------
-# Paths for training set
-# ----------------------------
-img_base = "/Users/jiannadong/Desktop/B2/CityPersons/leftImg8bit/train"
-ann_base = "/Users/jiannadong/Desktop/B2/CityPersons/gtFine/train"
-yolo_base = "/Users/jiannadong/Desktop/B2/CityPersons/yolo_labels/train"
+#paths for the training set
+img_base = "/Users/jd/Desktop/B2/CityPersons/leftImg8bit/train"
+ann_base = "/Users/jd/Desktop/B2/CityPersons/gtFine/train"
+yolo_base = "/Users/jd/Desktop/B2/CityPersons/yolo_labels/train"
 os.makedirs(yolo_base, exist_ok=True)
 
-# ----------------------------
-# Convert function
-# ----------------------------
+#convert function
 def convert_bbox(bbox, img_w, img_h):
     x_min, y_min, x_max, y_max = bbox
     x_center = ((x_min + x_max) / 2) / img_w
@@ -21,17 +17,11 @@ def convert_bbox(bbox, img_w, img_h):
     h = (y_max - y_min) / img_h
     return x_center, y_center, w, h
 
-# ----------------------------
-# Get bounding box from polygon
-# ----------------------------
 def bbox_from_polygon(polygon):
     xs = [pt[0] for pt in polygon]
     ys = [pt[1] for pt in polygon]
     return [min(xs), min(ys), max(xs), max(ys)]
 
-# ----------------------------
-# Traverse all subfolders
-# ----------------------------
 json_files = []
 for root, dirs, files in os.walk(ann_base):
     for file in files:
@@ -66,7 +56,6 @@ for json_path in json_files:
         if obj['label'] not in ["person", "rider"]:
             continue
 
-        # Use 'bbox' if exists, otherwise compute from polygon
         if 'bbox' in obj:
             bbox = obj['bbox']
         elif 'polygon' in obj:
