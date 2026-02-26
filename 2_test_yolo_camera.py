@@ -3,7 +3,7 @@ from ultralytics import YOLO
 
 model = YOLO("yolov8n.pt")
 
-#built-in webcam
+#builtin webcam
 def get_builtin_camera(max_index=4):
     for i in range(max_index + 1):
         cap = cv2.VideoCapture(i)
