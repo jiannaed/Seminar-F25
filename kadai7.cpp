@@ -2,31 +2,24 @@
 #include <stdio.h>
 
 int main() {
-    // 1. Create a new file for Question 5
     FILE* fp = fopen("data_q5.csv", "w");
     if (fp == NULL) {
         printf("Error: Could not create data_q5.csv.\n");
         return 1;
     }
-
-    // --- System Parameters ---
     double m = 5.0;
     double C = 2.0;
     double K_spring = 10.0;
 
-    // *** CHANGE 1: Fast Actuator ***
+    //acurator
     double T = 0.1;
 
     double natural_len = 0.2;
+    double K1 = 40.0;  
+    double K2 = 10.0;  
+    double K3 = 20.0;  
 
-    // --- Control Gains for Q5 ---
-    // With T=0.1, the system is much more stable. 
-    // We can use higher gains for better performance.
-    double K1 = 40.0;  // High P for fast rise
-    double K2 = 10.0;  // I to fix error
-    double K3 = 20.0;  // High D to stop overshoot
-
-    // --- Simulation Variables ---
+    //simulation variables 
     double t = 0.0;
     double dt = 0.01;
     double time_end = 40.0;
@@ -45,25 +38,23 @@ int main() {
     printf("Gains: K1=%.1f, K2=%.1f, K3=%.1f, T=%.1f\n", K1, K2, K3, T);
 
     while (t <= time_end) {
-        // PID Calculations
+        //PID
         ep = target - xp;
         ei = ei + ep * dt;
         u = K1 * ep + K2 * ei - K3 * v;
 
-        // Actuator Dynamics
+        //Actuator 
         double dF = (u - F) / T * dt;
         F = F + dF;
 
-        // System Dynamics
+        //System 
         double f_spring = K_spring * (xp - natural_len);
         double f_damping = C * v;
         double a = (F - f_spring - f_damping) / m;
 
-        // Integration
         v = v + a * dt;
         xp = xp + v * dt;
 
-        // Save Data
         if ((int)((t / dt) + 0.001) % 10 == 0) {
             fprintf(fp, "%.2f,%.4f,%.4f\n", t, u, xp);
         }
@@ -74,4 +65,5 @@ int main() {
     fclose(fp);
     printf("Finished. Check data_q5.csv\n");
     return 0;
+
 }
