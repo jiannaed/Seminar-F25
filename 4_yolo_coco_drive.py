@@ -4,14 +4,10 @@ from ultralytics import YOLO
 import os
 import urllib.request
 
-# Load YOLOv8 pretrained model
 model = YOLO("yolov8n.pt")
 
-# Folder for sample images
 data_folder = "/Users/jiannadong/Desktop/B2/coco_online/"
 os.makedirs(data_folder, exist_ok=True)
-
-# Download 2 sample images
 image_urls = [
     "https://ultralytics.com/images/zidane.jpg",
     "https://ultralytics.com/images/bus.jpg"
@@ -24,7 +20,7 @@ for url in image_urls:
         urllib.request.urlretrieve(url, file_path)
     image_paths.append(file_path)
 
-# ROI function
+#ROI
 def get_roi(frame):
     h, w, _ = frame.shape
     roi = np.array([
@@ -61,7 +57,7 @@ while True:
                 stop_triggered = True
 
         if stop_triggered:
-            cv2.putText(annotated_frame, "STOP!", (50,50),
+            cv2.putText(annotated_frame, "Stop", (50,50),
                         cv2.FONT_HERSHEY_SIMPLEX, 2, (0,0,255), 4)
 
         cv2.imshow("YOLO Pedestrian Driving Simulation", annotated_frame)
