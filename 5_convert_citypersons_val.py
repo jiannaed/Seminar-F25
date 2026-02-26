@@ -3,9 +3,9 @@ import os
 from PIL import Image
 
 #paths
-img_base = "/Users/jiannadong/Desktop/B2/CityPersons/leftImg8bit/val"
-ann_base = "/Users/jiannadong/Desktop/B2/CityPersons/gtFine/val"
-yolo_base = "/Users/jiannadong/Desktop/B2/CityPersons/yolo_labels/val"
+img_base = "/Users/jd/Desktop/B2/CityPersons/leftImg8bit/val"
+ann_base = "/Users/jd/Desktop/B2/CityPersons/gtFine/val"
+yolo_base = "/Users/jd/Desktop/B2/CityPersons/yolo_labels/val"
 os.makedirs(yolo_base, exist_ok=True)
 
 #YOLO format conversion
