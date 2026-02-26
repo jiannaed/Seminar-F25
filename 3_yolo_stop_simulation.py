@@ -6,7 +6,7 @@ import os
 
 model = YOLO("yolov8n.pt")  # pretrained on COCO
 
-image_folder = "/Users/jiannadong/Desktop/B2/coco_sample/"
+image_folder = "/Users/jd/Desktop/B2/coco_sample/"
 os.makedirs(image_folder, exist_ok=True)
 sample_urls = [
     "https://ultralytics.com/images/zidane.jpg",
