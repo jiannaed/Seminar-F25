@@ -6,7 +6,7 @@ import urllib.request
 
 model = YOLO("yolov8n.pt")
 
-data_folder = "/Users/jiannadong/Desktop/B2/coco_online/"
+data_folder = "/Users/jd/Desktop/B2/coco_online/"
 os.makedirs(data_folder, exist_ok=True)
 image_urls = [
     "https://ultralytics.com/images/zidane.jpg",
